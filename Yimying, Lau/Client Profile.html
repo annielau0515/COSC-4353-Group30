@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<link href="hello.css" rel="stylesheet">
+<title>Client Profile</title> 
+<style>
+body {  margin-top: 100px;
+		color: #bcd0f7;
+		background: #1A233A;
+		text-align: center;
+}
+h1 { color: white; }
+.PersonalDetails .address {
+color: #4169E1;
+}
+.form-control {
+    border: 1px solid #596280;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    font-size: .825rem;
+    background: #1A233A;
+    color: #bcd0f7;
+}
+</style>
+<body>
+<h1>Client Profile</h1>
+<form action="/action_page.php" method="POST">
+	<div class="container">
+		<div class="row gutters">
+			<div class="PersonalDetails">
+				<h3 class="PersonalDetails">Personal Details</h3>
+			</div>
+			<div class="fullName">
+				<label for="fullName">Full Name:</label>
+				<input type="text" class="form-control" id="fullName" placeholder="max length 50 characters" maxlength="50" required>
+			</div>
+		</div>
+				<div class="row gutters">
+					<div class="address">
+						<h3 class="address">Address</h3>
+					</div>
+					<div class="Address1">
+						<label for="Address1">Address 1:</label>
+						<input type="name" class="form-control" id="Address1" placeholder="Enter address" maxlength="100" required>
+					</div>
+				</div>
+					<div class="Address2">
+						<label for="Address2">Address 2:</label>
+						<input type="name" class="form-control" id="Address2" placeholder="Enter address" maxlength="100">
+					</div>
+					<div class="city">
+						<label for="city">City:</label>
+						<input type="name" class="form-control" id="city" placeholder="Enter City" maxlength="100" required>
+					</div>
+					<div class="state">
+						<label for="state">State:</label>
+						<select name="state" id="state" class="form-control">
+							<option value="TX">TX</option>
+							<option value="AL">AL</option>
+							<option value="AK">AK</option>
+							<option value="CA">CA</option>
+							<option value="DE">DE</option>
+							<option value="FL">FL</option>
+						</select>
+					</div>
+					<div class="zip">
+						<label for="zip">Zip Code</label>
+						<input type="text" class="form-control" id="zip" placeholder="Zip Code" maxlength="9" pattern=".{5,}" title="at least 5 character code" required>
+					</div>
+	</div>
+  <input type="submit">
+</form>
+</body>
+</html>
