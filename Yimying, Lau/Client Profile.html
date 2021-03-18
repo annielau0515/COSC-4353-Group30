@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-<link href="hello.css" rel="stylesheet">
+<script src="profile.js" defer></script>
+<script src="fetch.js" defer></script>
 <title>Client Profile</title> 
 <style>
 body {  margin-top: 100px;
@@ -11,6 +12,18 @@ body {  margin-top: 100px;
 h1 { color: white; }
 .PersonalDetails .address {
 color: #4169E1;
+}
+input {
+	border: 1px solid #aaa;
+    border-radius: 4px;
+    padding: .5rem;
+    margin-bottom: 1rem;
+}
+select {
+	border: 1px solid #aaa;
+    border-radius: 4px;
+    padding: .5rem;
+    margin-bottom: 1rem;
 }
 .form-control {
     border: 1px solid #596280;
@@ -24,7 +37,7 @@ color: #4169E1;
 </style>
 <body>
 <h1>Client Profile</h1>
-<form action="/action_page.php" method="POST">
+<form action="http://127.0.0.1:5500/Fuel%20Quote%20History.html">
 	<div class="container">
 		<div class="row gutters">
 			<div class="PersonalDetails">
@@ -41,16 +54,16 @@ color: #4169E1;
 					</div>
 					<div class="Address1">
 						<label for="Address1">Address 1:</label>
-						<input type="name" class="form-control" id="Address1" placeholder="Enter address" maxlength="100" required>
+						<input type="text" class="form-control" id="Address1" placeholder="Enter address" maxlength="100" required>
 					</div>
 				</div>
 					<div class="Address2">
 						<label for="Address2">Address 2:</label>
-						<input type="name" class="form-control" id="Address2" placeholder="Enter address" maxlength="100">
+						<input type="text" class="form-control" id="Address2" placeholder="Enter address" maxlength="100">
 					</div>
 					<div class="city">
 						<label for="city">City:</label>
-						<input type="name" class="form-control" id="city" placeholder="Enter City" maxlength="100" required>
+						<input type="text" class="form-control" id="city" placeholder="Enter City" maxlength="100" required>
 					</div>
 					<div class="state">
 						<label for="state">State:</label>
@@ -68,7 +81,12 @@ color: #4169E1;
 						<input type="text" class="form-control" id="zip" placeholder="Zip Code" maxlength="9" pattern=".{5,}" title="at least 5 character code" required>
 					</div>
 	</div>
-  <input type="submit">
+  <input type="submit" value="submit">
+  <a href="http://127.0.0.1:5500/Fuel%20Quote%20History.html"></a>
 </form>
+<section id="control-center">
+	<button id="get-btn">Get Data</button>
+	<button id="post-btn">Post Data</button>
+</section>
 </body>
 </html>
