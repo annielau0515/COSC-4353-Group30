@@ -4,7 +4,7 @@
     "description": "Cilent Profile",
     "main": "profile.js",
     "scripts": {
-        "start": "webpack app.js --mode development --watch",
+        "start": "nodemon app.js",
         "test": "nyc mocha",
         "test:coverage": "istanbul cover _mocha profile.test.js -x *.test.js",
         "coverage": "istanbul cover _mocha profile.test.js",
@@ -22,7 +22,6 @@
         "e2e",
         "tests"
     ],
-    "author": "Maximilian Schwarzmüller/ Academind GmbH",
     "license": "ISC",
     "devDependencies": {
         "chai": "^4.3.4",
@@ -35,6 +34,11 @@
         "webpack-cli": "^3.1.2"
     },
     "dependencies": {
-        "coverage": "^0.0.0"
+        "coverage": "^0.0.0",
+        "dotenv": "^8.2.0",
+        "express": "^4.17.1",
+        "hbs": "^4.1.1",
+        "mysql": "^2.18.1",
+        "nodemon": "^2.0.7"
     }
 }
