@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<title>Fuel Quote Form</title>
+
+<style>
+   .required::after {
+      content: "*";
+      color: red;
+   }
+
+   div {
+      padding: 10px;
+      border: 2px solid white;
+      width: 500px;
+      background: black;
+   }
+   
+   label {
+      display: inline-block;
+      width: 200px;
+   }
+   
+   input {
+      width: 200px;
+      margin: auto;
+   }
+
+   input[type="submit"] {
+      width: auto;
+      margin-left: 200px;
+   }
+
+   body {  
+      margin-top: 100px;
+      margin-left: 100px;
+      color: #bcd0f7;
+      background: #1A233A;
+      left-margin: 20px;
+   }
+   
+   img {
+      float: right;
+   }  
+   
+   h1 {
+      background-color: black;
+      width:500px;
+      border: 2px white solid;
+      padding: 10px; 
+   }
+
+</style>
+
+<body>
+   <img src="oil_barrel.jpeg" alt="oil barrel">
+   <h1>Fuel Quote Form</h1>
+   <p><span class="required"></span> indicates required field</p>
+   <form action="fuel" method="POST">
+
+   <div>
+      <label class="required" for="gallons">Gallons Requested:</label>
+      <input type="number" name="gallons" id="gallons" min=1 placeholder="Minimum of 1 gallon" required>
+   </div>
+
+   <div> 
+      <label for="deliveryaddress">Delivery Address:</label>
+      <input type="text" name="deliveryaddress" id="deliveryaddress" placeholder="Address from Client Profile" value=v disabled>
+   </div>
+
+   <div>
+      <label for="deliverydate">Delivery Date:</label>
+      <input type="date" name="deliverydate" id="deliverydate">
+   </div>
+
+   <div>
+      <label for="price">Suggested Price / gallon:</label>
+      <input type="number" name="price" id="price" placeholder="Price based on gallons">
+   </div>
+
+   <div>
+      <label for="total">Total Amount Due:</label>
+      <input type="number" name="total" id="total" placeholder="price*gallons requested" disabled>
+   </div>
+
+   <div>
+      <input type="submit" value="Submit Fuel Quote">
+   </div>
+   </form>
+      
+</html>
