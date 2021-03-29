@@ -1,0 +1,11 @@
+CREATE DATABASE FuelCompany;
+
+CREATE TABLE FuelQuote {
+  LastName varchar(255);
+  FirstName varchar(255);
+  Gallons int;
+  Price decimal(4,2);
+};
+ 
+  
+  
