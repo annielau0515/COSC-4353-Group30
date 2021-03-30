@@ -7,54 +7,20 @@
       content: "*";
       color: red;
    }
-
-   div {
-      padding: 10px;
-      border: 2px solid white;
-      width: 500px;
-      background: black;
-   }
-   
-   label {
-      display: inline-block;
-      width: 200px;
-   }
-   
-   input {
-      width: 200px;
-      margin: auto;
-   }
-
-   input[type="submit"] {
-      width: auto;
-      margin-left: 200px;
-   }
-
-   body {  
-      margin-top: 100px;
-      margin-left: 100px;
-      color: #bcd0f7;
-      background: #1A233A;
-      left-margin: 20px;
-   }
    
    img {
       float: right;
    }  
-   
-   h1 {
-      background-color: black;
-      width:500px;
-      border: 2px white solid;
-      padding: 10px; 
-   }
-
 </style>
+
+<link href="style.css" rel="stylesheet">
 
 <body>
    <img src="oil_barrel.jpeg" alt="oil barrel">
    <h1>Fuel Quote Form</h1>
-   <p><span class="required"></span> indicates required field</p>
+   <p><span class="required"></span>indicates required field</p>
+   <form action="fuel" method="POST" onsubmit="popup()">
+
    <div>
       <label class="required" for="gallons">Gallons Requested:</label>
       <input type="number" name="gallons" id="gallons" min=1 placeholder="Minimum of 1 gallon" required>
@@ -64,12 +30,20 @@
       <input type="date" name="deliverydate" id="deliverydate">
    </div>
    <div>
-      <input type="submit" value="Submit Fuel Quote" onsubmit="popup()">
+      <input type="submit" value="Submit Fuel Quote">
    </div>
    
+   </form>
+
    <script>
       function popup() { 
          newWindow = window.open("", null, "height=200,width=400,status=yes,toolbar=no,menubar=no,location=no");  
+         newWindow.document.write('<link href="style.css" rel="stylesheet">');
+         newWindow.document.write('<h1>Fuel Quote</h1>');
+         var gallons = document.getElementById('gallons').value;
+         var deliverydate = document.getElementById('deliverydate').value;
+         newWindow.document.write('<div>Gallons Requested: '+gallons+'</div>');
+         newWindow.document.write('<div>Delivery Date: '+deliverydate+'</div>');
       }
    </script>
       
