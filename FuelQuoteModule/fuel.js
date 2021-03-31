@@ -136,12 +136,14 @@ app.post('/fuel', (req, res) => {
     });
 });   
 
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
 app.get('/', function(res, req) {
-    res.sendFile(path.join(__dirname + '/fuelQuoteDisplay.html'), (err) => {
-        if (err) {
-            res.send('The Quote was not displayed');
-        }
-        else {return true;};
+    sql = 'select * from fuel_quote';
+    conn.query(sql, function(err, results, fields) {
+        if (err) throw err;
+        res.render('fuelQuoteDisplay', {results: results});
     });
 });
 /*
