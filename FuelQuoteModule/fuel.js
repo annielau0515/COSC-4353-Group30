@@ -26,7 +26,7 @@ function fuelQuoteForm() {
 var quote = fuelQuoteForm();
 
 //sets username to theloudmute
-var username = 'theloudmute';
+var full_name = 'LeDontre Walters';
 
 app.post('/fuel', (req, res) => {
 
@@ -66,9 +66,9 @@ app.post('/fuel', (req, res) => {
     };    
 
     //Sends a query to mysql and returns the state the client lives in
-    var sql = 'select c.state from customers c where c.username = ?';
+    var sql = 'select c.state from client_information c where c.full_name = ?';
 
-    conn.query(sql, username, function(err, results, fields) {
+    conn.query(sql, full_name, function(err, results, fields) {
         const state = results[0].state;
         
         
@@ -77,24 +77,24 @@ app.post('/fuel', (req, res) => {
             conn.query(sql, function(err, results, fields) {
                 if (err) throw err;
                 const price = results[0].in_state_price;
-                sql = 'select c.address from customers c where c.username = ?';
-                conn.query(sql, username, function(err, results, fields) {
+                sql = 'select c.address1 from client_information c where c.full_name = ?';
+                conn.query(sql, full_name, function(err, results, fields) {
                     if (err) throw err;
-                    var address = results[0].address;;
+                    var address = results[0].address1;;
                     
                     const cost = gallons * price;
                     if (deliverydate) {
-                        sql = 'insert into fuel_quote(gallons, delivery_date, address, price, cost)'
-                        sql += ' value(?, ?, ?, ?, ?);';
-                        conn.query(sql,[gallons, deliverydate,address,price,cost], function(err) {
+                        sql = 'insert into fuel_quote(full_name, gallons, delivery_date, address1, price, cost)'
+                        sql += ' value(?, ?, ?, ?, ?, ?);';
+                        conn.query(sql,[full_name, gallons, deliverydate,address,price,cost], function(err) {
                             if (err) throw err;
                             console.log('data successfully added to fuel quote');
                         });
                     }
                     else {
-                        sql = 'insert into fuel_quote(gallons, address, price, cost)'
-                        sql += ' value(?, ?, ?, ?);';
-                        conn.query(sql,[gallons,address,price,cost], function(err) {
+                        sql = 'insert into fuel_quote(full_name, gallons, address1, price, cost)'
+                        sql += ' value(?, ?, ?, ?, ?);';
+                        conn.query(sql,[full_name, gallons,address,price,cost], function(err) {
                             if (err) throw err;
                             console.log('data successfully added to fuel quote');
                         });
@@ -107,24 +107,24 @@ app.post('/fuel', (req, res) => {
             conn.query(sql, function(err, results, fields) {
                 if (err) throw err;
                 const price = results[0].out_of_state_price;
-                sql = 'select c.address from customers c where c.username = ?';
-                conn.query(sql, username, function(err, results, fields) {
+                sql = 'select c.address1 from client_information c where c.full_name = ?';
+                conn.query(sql, full_name, function(err, results, fields) {
                     if (err) throw err;
-                    var address = results[0].address;;
+                    var address = results[0].address1;;
                     
                     const cost = gallons * price;
                     if (deliverydate) {
-                        sql = 'insert into fuel_quote(gallons, delivery_date, address, price, cost)'
-                        sql += ' value(?, ?, ?, ?, ?);';
-                        conn.query(sql,[gallons, deliverydate,address,price,cost], function(err) {
+                        sql = 'insert into fuel_quote(full_name, gallons, delivery_date, address1, price, cost)'
+                        sql += ' value(?, ?, ?, ?, ?, ?);';
+                        conn.query(sql,[full_name, gallons, deliverydate,address,price,cost], function(err) {
                             if (err) throw err;
                             console.log('data successfully added to fuel quote');
                         });
                     }
                     else {
-                        sql = 'insert into fuel_quote(gallons, address, price, cost)'
-                        sql += ' value(?, ?, ?, ?);';
-                        conn.query(sql,[gallons,address,price,cost], function(err) {
+                        sql = 'insert into fuel_quote(full_name, gallons, address1, price, cost)'
+                        sql += ' value(?, ?, ?, ?, ?);';
+                        conn.query(sql,[full_name, gallons,address,price,cost], function(err) {
                             if (err) throw err;
                             console.log('data successfully added to fuel quote');
                         });
