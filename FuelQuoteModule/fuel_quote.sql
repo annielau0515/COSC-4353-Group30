@@ -25,5 +25,16 @@ CREATE TABLE IF NOT EXISTS fuel_quote_history (
 DROP TABLE IF EXISTS fuel_quote;
 CREATE TABLE IF NOT EXISTS fuel_quote (
 	gallons int not null,
-    delivery_date date
-)
+    delivery_date date,
+    address varchar(50) not null,
+    price decimal(4,2) not null,
+    cost numeric not null
+);
+
+CREATE TABLE IF NOT EXISTS price (
+	out_of_state_price decimal(4,2) not null,
+    in_state_price decimal(4,2) not null
+    );
+insert into price(out_of_state_price, in_state_price) values(2.49, 2.65);
+    
+    
