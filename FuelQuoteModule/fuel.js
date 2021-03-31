@@ -134,9 +134,16 @@ app.post('/fuel', (req, res) => {
         };
         
     });
+});   
+
+app.get('/', function(res, req) {
+    res.sendFile(path.join(__dirname + '/fuelQuoteDisplay.html'), (err) => {
+        if (err) {
+            res.send('The Quote was not displayed');
+        }
+        else {return true;};
+    });
 });
-
-
 /*
 class Pricing
 {
