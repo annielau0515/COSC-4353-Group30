@@ -2,24 +2,14 @@
 <html>
 <title>Fuel Quote Form</title>
 
-<style>
-   .required::after {
-      content: "*";
-      color: red;
-   }
-   
-   img {
-      float: right;
-   }  
-</style>
-
-<link href="style.css" rel="stylesheet">
-
+<head>
+   <link href="style.css" rel="stylesheet"/>
+</head>
 <body>
    <img src="oil_barrel.jpeg" alt="oil barrel">
    <h1>Fuel Quote Form</h1>
    <p><span class="required"></span>indicates required field</p>
-   <form action="fuel" method="POST" onsubmit="popup()">
+   <form action="/" method="POST">
 
    <div>
       <label class="required" for="gallons">Gallons Requested:</label>
@@ -34,17 +24,5 @@
    </div>
    
    </form>
-
-   <script>
-      function popup() { 
-         newWindow = window.open("", null, "height=200,width=400,status=yes,toolbar=no,menubar=no,location=no");  
-         newWindow.document.write('<link href="style.css" rel="stylesheet">');
-         newWindow.document.write('<h1>Fuel Quote</h1>');
-         var gallons = document.getElementById('gallons').value;
-         var deliverydate = document.getElementById('deliverydate').value;
-         newWindow.document.write('<div>Gallons Requested: '+gallons+'</div>');
-         newWindow.document.write('<div>Delivery Date: '+deliverydate+'</div>');
-      }
-   </script>
-      
+</body>
 </html>

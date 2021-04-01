@@ -6,14 +6,13 @@ const app = express();
 
 var bodyParser = require('body-parser');
 
-
 app.use(bodyParser.urlencoded({
     extended: false}));
 
 
 function fuelQuoteForm() {
     app.get('/', (req, res) =>{
-        res.sendFile(path.join(__dirname + '/fuelQuoteForm.html'), (err) => {
+        res.sendFile(path.join(__dirname + '/FuelQuoteForm.html'), (err) => {
             if (err) {
                 res.send('The Fuel Quote form was not loaded');
             }
@@ -28,7 +27,7 @@ var quote = fuelQuoteForm();
 //sets username to theloudmute
 var full_name = 'LeDontre Walters';
 
-app.post('/fuel', (req, res) => {
+app.post('/', (req, res) => {
 
     var gallons = req.body.gallons;
     var deliverydate = req.body.deliverydate;
@@ -89,6 +88,14 @@ app.post('/fuel', (req, res) => {
                         conn.query(sql,[full_name, gallons, deliverydate,address,price,cost], function(err) {
                             if (err) throw err;
                             console.log('data successfully added to fuel quote');
+                            conn.query('select * from fuel_quote', function(err, results, fields) {
+                                if (err) throw err;
+                                app.set('views', __dirname);
+                                app.set('view engine', 'ejs');
+                                console.log(results);
+
+                                res.render('fuelQuoteDisplay', {results: results});
+                            });
                         });
                     }
                     else {
@@ -136,16 +143,8 @@ app.post('/fuel', (req, res) => {
     });
 });   
 
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
 
-app.get('/', function(res, req) {
-    sql = 'select * from fuel_quote';
-    conn.query(sql, function(err, results, fields) {
-        if (err) throw err;
-        res.render('fuelQuoteDisplay', {results: results});
-    });
-});
+
 /*
 class Pricing
 {
