@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fuel </title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+    />
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="loginBox">
+        <div class="switchBox boxSign">
+          <div class="changeBtn toSign">
+            <span>sign up</span>
+          </div>
+        </div>
+
+
+        <div class="topBtn left">
+          <span class="changeIcon red-btn">
+            <i class="fas fa-car-alt fa-lg"></i>
+            <i class="fas fa-car-crash fa-lg"></i>
+          </span>
+          <span class="changeIcon yellow-btn">
+            <i class="fas fa-car-alt fa-lg"></i>
+            <i class="fas fa-car-crash fa-lg"></i>
+          </span>
+          <span class="changeIcon green-btn">
+            <i class="fas fa-car-alt fa-lg"></i>
+            <i class="fas fa-car-crash fa-lg"></i>
+          </span>
+        </div>
+
+        <!--first login form-->
+        <form action="/" method='POST'>
+        <div class="title">Welcome</div>
+        <div class="input">
+          <label for="loginUser"></label>
+          <input type="text" name="loginName" id="loginUser" placeholder="username" required>
+        </div>
+        <div class="input">
+          <input type="password" name = "loginPass" id="loginPassword" placeholder="password" required>
+        </div>
+        
+        <div class="btn loginBtn">
+         <input type="submit" value="Log In">
+         <!-- <span><a href="uelQuoteForm.html">Log In</a></span> -->
+        </div>
+      </div>
+      </form>
+      <!--end of login form-->
+
+      <div class="signupBox">
+        <div class="switchBox boxLog">
+          <div class="changeBtn toLogin">
+            <span>Log in</span>
+          </div>
+        </div>
+        <div class="topBtn right">
+          <span class="changeIcon red-btn">
+            <i class="fas fa-car-alt fa-lg"></i>
+            <i class="fas fa-car-crash fa-lg"></i>
+          </span>
+          <span class="changeIcon yellow-btn">
+            <i class="fas fa-car-alt fa-lg"></i>
+            <i class="fas fa-car-crash fa-lg"></i>
+          </span>
+          <span class="changeIcon green-btn">
+            <i class="fas fa-car-alt fa-lg"></i>
+            <i class="fas fa-car-crash fa-lg"></i>
+          </span>
+        </div>
+
+        <!--sigup form-->
+        <form action="/signup" method='POST'>
+        <div class="title">Sign Up</div>
+        <div class="input">
+          <input type="text" name="signName" id="signupUser" placeholder="username" required>
+        </div>
+        <div class="input">
+          <input type="password" name="signPass" id="signupPassword" placeholder="password" required>
+        </div>
+        <div class="btn loginBtn">
+          <input type="submit" value="Sign Up">
+          <!-- <span><a href="ClientProfile.html">Sign Up</a></span> -->
+        </div>
+      </form>
+
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+    
+  </body>
+</html>

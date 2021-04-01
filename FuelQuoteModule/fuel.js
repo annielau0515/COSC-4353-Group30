@@ -1,7 +1,10 @@
 const conn = require('./database.js');
+
 const Joi = require('joi');
 const express = require('express')
 const path = require('path')
+const login = require(path.join('../LoginModule/login' + '.js'));
+
 const app = express();
 
 var bodyParser = require('body-parser');
@@ -13,6 +16,8 @@ app.use(bodyParser.urlencoded({
 function fuelQuoteForm() {
     app.get('/', (req, res) =>{
         res.sendFile(path.join(__dirname + '/FuelQuoteForm.html'), (err) => {
+            console.log('making it here');
+
             if (err) {
                 res.send('The Fuel Quote form was not loaded');
             }
@@ -23,9 +28,6 @@ function fuelQuoteForm() {
 }
 
 var quote = fuelQuoteForm();
-
-//sets username to theloudmute
-var full_name = 'LeDontre Walters';
 
 app.post('/', (req, res) => {
 
@@ -156,5 +158,4 @@ class Pricing
 };
 */
 // PORT
-const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`Listening on port ${port}...`));
+//module.exports = app;
