@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <title>Fuel Quote</title>
+  
+  <link href="style.css" rel="stylesheet">
+  
+  <body>
+    <h1>Fuel Quote</h1>
+    <h2>Name: <%=results[results.length-1].full_name%></h2>
+    <div>Delivery Address: <%=results[results.length-1].address1%></div>
+    <div>Delivery Date: <%=results[results.length-1].delivery_date%></div>
+    <div>Gallons requested: <%=results[results.length-1].gallons%></div>
+    <div>Price / gallon: <%=results[results.length-1].price%></div>
+    <div>Total Amount Due: <%=results[results.length-1].cost%></div>
+
+    <div>
+      <h1>Fuel Quote History</h1>
+      <table>
+        <tr>
+          <th>Quote</th>
+          <th>Delivery Address</th>
+          <th>Delivery Date</th>
+          <th>Gallons Requested</th>
+          <th>Price / gallon</th>
+          <th>Total Amount Due</th>
+        </tr>
+        <%for(var i = 0; i < results.length; i++) {%>
+        <tr>
+          <td><%= i+1 %></td>
+          <td><%= results[i].address1 %></td>
+          <td><%= results[i].delivery_date %></td>
+          <td><%= results[i].gallons %></td>
+          <td><%= results[i].price %></td>
+          <td><%= results[i].cost %></td>
+        </tr>
+        <% } %>
+      </table>
+    </div>
+  </body>
+</html>

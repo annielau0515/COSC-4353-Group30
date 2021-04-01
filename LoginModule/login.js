@@ -18,6 +18,9 @@ app.get('/',(req,res) => {
     res.sendFile(path.join(__dirname,'/login.html'));
 });
 
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
 app.post('/', (req,res)=> {
     var login = req.body.loginName;
     var pwd = req.body.loginPass;
@@ -123,10 +126,8 @@ app.post('/fuelQuote', (req, res) => {
                         conn.query(sql,[fullname, gallons, deliverydate,address,price,cost], function(err) {
                             if (err) throw err;
                             console.log('data successfully added to fuel quote');
-                            conn.query('select * from fuel_quote', function(err, results, fields) {
+                            conn.query('select * from fuel_quote q where q.full_name = ?', fullname, function(err, results, fields) {
                                 if (err) throw err;
-                                app.set('views', __dirname);
-                                app.set('view engine', 'ejs');
                                 console.log(results);
 
                                 res.render('fuelQuoteDisplay', {results: results});
@@ -139,10 +140,9 @@ app.post('/fuelQuote', (req, res) => {
                         conn.query(sql,[fullname, gallons,address,price,cost], function(err) {
                             if (err) throw err;
                             console.log('data successfully added to fuel quote');
-                            conn.query('select * from fuel_quote', function(err, results, fields) {
+                            conn.query('select * from fuel_quote q where q.full_name = ?', fullname, function(err, results, fields) {
                                 if (err) throw err;
-                                app.set('views', __dirname);
-                                app.set('view engine', 'ejs');
+                                
                                 console.log(results);
 
                                 res.render('fuelQuoteDisplay', {results: results});
@@ -169,10 +169,9 @@ app.post('/fuelQuote', (req, res) => {
                         conn.query(sql,[fullname, gallons, deliverydate,address,price,cost], function(err) {
                             if (err) throw err;
                             console.log('data successfully added to fuel quote');
-                            conn.query('select * from fuel_quote', function(err, results, fields) {
+                            conn.query('select * from fuel_quote q where q.full_name = ?', fullname, function(err, results, fields) {
                                 if (err) throw err;
-                                app.set('views', __dirname);
-                                app.set('view engine', 'ejs');
+                                
                                 console.log(results);
 
                                 res.render('fuelQuoteDisplay', {results: results});
@@ -185,10 +184,9 @@ app.post('/fuelQuote', (req, res) => {
                         conn.query(sql,[fullname, gallons,address,price,cost], function(err) {
                             if (err) throw err;
                             console.log('data successfully added to fuel quote');
-                            conn.query('select * from fuel_quote', function(err, results, fields) {
-                                if (err) throw err;
-                                app.set('views', __dirname);
-                                app.set('view engine', 'ejs');
+                            conn.query('select * from fuel_quote q where q.full_name = ?', fullname, function(err, results, fields) {
+                                if (err) throw err; 
+                                
                                 console.log(results);
 
                                 res.render('fuelQuoteDisplay', {results: results});
