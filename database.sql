@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS user_credentials (
 );
 	
 CREATE TABLE IF NOT EXISTS client_information (
+	id varchar(50) not null primary key,
 	full_name varchar(50) not null,
 	address1 varchar(100) not null,
 	address2 varchar(100),
@@ -14,9 +15,6 @@ CREATE TABLE IF NOT EXISTS client_information (
 	state char(2) not null,
 	zip_code varchar(10) not null
 );
-
-insert into client_information(full_name, address1, city, state, zipcode) 
-values('LeDontre Walters', '20906 Neelie Ct', 'Houston', 'TX', '77778');
 
 DROP TABLE IF EXISTS fuel_quote;
 CREATE TABLE IF NOT EXISTS fuel_quote (
@@ -28,6 +26,7 @@ CREATE TABLE IF NOT EXISTS fuel_quote (
 	cost numeric not null
 );
 
+Drop table if exists price;
 CREATE TABLE IF NOT EXISTS price (
 	out_of_state_price decimal(4,2) not null,
 	in_state_price decimal(4,2) not null
