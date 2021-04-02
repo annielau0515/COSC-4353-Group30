@@ -1,9 +1,15 @@
 const express = require('express');
-const conn = require('../FuelQuoteModule/database.js');
+const conn = require('./database.js');
 const path = require('path')
 const session = require('express-session');
 const app = express();
-//const fuel = require('../FuelQuoteModule/fuel.js');
+const fuel = require('./fuel.js');
+
+const Welcome = require('./Welcome.js');
+const script = require('./public/script.js');
+const app_ = require('./app.js') ;
+const index = require('./routes/index');
+const user = require('./routes/users');
 
 app.use(session({secret: 'secret', saveUninitialized: true,resave: true}));
 
@@ -205,4 +211,6 @@ app.post('/fuelQuote', (req, res) => {
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
-//module.exports = app;
+
+module.exports = app;
+module.exports = express;
