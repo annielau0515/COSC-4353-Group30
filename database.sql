@@ -1,11 +1,13 @@
 CREATE DATABASE IF NOT EXISTS fuel_company;
 use fuel_company;
 
+DROP TABLE IF EXISTS user_credentials;
 CREATE TABLE IF NOT EXISTS user_credentials (
 	id varchar(50) not null primary key,
 	password blob not null
 );
 	
+DROP TABLE IF EXISTS client_information;
 CREATE TABLE IF NOT EXISTS client_information (
 	id varchar(50) not null primary key,
 	full_name varchar(50) not null,
@@ -25,10 +27,3 @@ CREATE TABLE IF NOT EXISTS fuel_quote (
 	price decimal(4,2) not null,
 	cost numeric not null
 );
-
-Drop table if exists price;
-CREATE TABLE IF NOT EXISTS price (
-	out_of_state_price decimal(4,2) not null,
-	in_state_price decimal(4,2) not null
-    );
-insert into price(out_of_state_price, in_state_price) values(2.49, 2.65);

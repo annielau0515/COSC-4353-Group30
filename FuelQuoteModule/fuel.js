@@ -1,161 +1,91 @@
-const conn = require('./database.js');
+setup = require('../Setup/app_setup')
 
-const Joi = require('joi');
-const express = require('express')
-const path = require('path')
-const login = require(path.join('../LoginModule/login' + '.js'));
+const conn = require('../Database/database')
+const app = setup.app
+const path = setup.path
+const session = setup.session
 
-const app = express();
+const PricingClass = require('../PricingModule/Pricing')
 
-var bodyParser = require('body-parser');
+app.post('/fuelQuote', (req, res) => {
+    var Pricing = new PricingClass.Pricing
 
-app.use(bodyParser.urlencoded({
-    extended: false}));
+    gallons = req.body.gallons;
+    deliverydate = req.body.deliverydate;  
 
-
-function fuelQuoteForm() {
-    app.get('/', (req, res) =>{
-        res.sendFile(path.join(__dirname + '/FuelQuoteForm.html'), (err) => {
-            console.log('making it here');
-
+    Pricing.set_gallons(gallons);
+    
+    function client_query (fullname, Pricingclass, callback) {
+        // Sends a query to mysql and returns the state the client lives in
+        let sql = 'select* from client_information c where c.full_name = ?';
+        conn.query(sql, fullname, function(err, results) {
             if (err) {
-                res.send('The Fuel Quote form was not loaded');
-            }
-            else {return true;};
-        })
-
-    });   
-}
-
-var quote = fuelQuoteForm();
-
-app.post('/', (req, res) => {
-
-    var gallons = req.body.gallons;
-    var deliverydate = req.body.deliverydate;
-
-    if (deliverydate) {
-        const schema = Joi.object().keys({
-            gallons: Joi.number().min(1).required(),
-            deliverydate: Joi.date()
+                callback(err, null, null)
+            } else
+            callback(null, Pricingclass, results)
         });
-
-        const inputs = {
-            gallons: gallons,
-            deliverydate: deliverydate
-        };
-
-        const result = schema.validate(inputs);
-
-        if (result.error) {
-            res.status(400).send(result.error);
-            return;
-        };
-
-
     }
-    else {
-        const schema = Joi.number().min(1).required();
 
-        const result = schema.validate(gallons);
+    var info;
 
-        if (result.error) {
-            res.status(400).send(result.error);
-            return;
-        };
-
-    };    
-
-    //Sends a query to mysql and returns the state the client lives in
-    var sql = 'select c.state from client_information c where c.full_name = ?';
-
-    conn.query(sql, full_name, function(err, results, fields) {
-        const state = results[0].state;
-        
-        
-        if (state === 'TX') {
-            sql = 'select in_state_price from price';
-            conn.query(sql, function(err, results, fields) {
-                if (err) throw err;
-                const price = results[0].in_state_price;
-                sql = 'select c.address1 from client_information c where c.full_name = ?';
-                conn.query(sql, full_name, function(err, results, fields) {
-                    if (err) throw err;
-                    var address = results[0].address1;;
-                    
-                    const cost = gallons * price;
-                    if (deliverydate) {
-                        sql = 'insert into fuel_quote(full_name, gallons, delivery_date, address1, price, cost)'
-                        sql += ' value(?, ?, ?, ?, ?, ?);';
-                        conn.query(sql,[full_name, gallons, deliverydate,address,price,cost], function(err) {
-                            if (err) throw err;
-                            console.log('data successfully added to fuel quote');
-                            conn.query('select * from fuel_quote', function(err, results, fields) {
-                                if (err) throw err;
-                                app.set('views', __dirname);
-                                app.set('view engine', 'ejs');
-                                console.log(results);
-
-                                res.render('fuelQuoteDisplay', {results: results});
-                            });
-                        });
-                    }
-                    else {
-                        sql = 'insert into fuel_quote(full_name, gallons, address1, price, cost)'
-                        sql += ' value(?, ?, ?, ?, ?);';
-                        conn.query(sql,[full_name, gallons,address,price,cost], function(err) {
-                            if (err) throw err;
-                            console.log('data successfully added to fuel quote');
-                        });
-                    };
-                });
-            });
+    client_query(req.session.fullname, Pricing, function(err, Pricingclass, content) {
+        if (err) {
+            console.log(err)
         }
         else {
-            sql = 'select out_of_state_price from price';
-            conn.query(sql, function(err, results, fields) {
-                if (err) throw err;
-                const price = results[0].out_of_state_price;
-                sql = 'select c.address1 from client_information c where c.full_name = ?';
-                conn.query(sql, full_name, function(err, results, fields) {
-                    if (err) throw err;
-                    var address = results[0].address1;;
-                    
-                    const cost = gallons * price;
-                    if (deliverydate) {
-                        sql = 'insert into fuel_quote(full_name, gallons, delivery_date, address1, price, cost)'
-                        sql += ' value(?, ?, ?, ?, ?, ?);';
-                        conn.query(sql,[full_name, gallons, deliverydate,address,price,cost], function(err) {
-                            if (err) throw err;
-                            console.log('data successfully added to fuel quote');
-                        });
-                    }
-                    else {
-                        sql = 'insert into fuel_quote(full_name, gallons, address1, price, cost)'
-                        sql += ' value(?, ?, ?, ?, ?);';
-                        conn.query(sql,[full_name, gallons,address,price,cost], function(err) {
-                            if (err) throw err;
-                            console.log('data successfully added to fuel quote');
-                        });
-                    };
-                });
-            });
-        };
-        
-    });
-});   
+            info = content[0]
+            Pricingclass.set_location(info.state)
+        }
+    })
 
-
-
-/*
-class Pricing
-{
-    constructor(gallons, profit, customer) {
-        this.gallons = gallons;
-        this.profit = profit;
-        this.customer = customer;
+    // Sends a query to database to see if client has fuel quote history
+    function quote_query (fullname, Pricingclass, gallons, callback) {
+        let sql = 'select * from fuel_quote f where f.full_name = ?';
+        conn.query(sql, fullname, function(err, results) {
+            if (err) {
+                callback(err, null, null, null)
+            }
+            else {
+                callback(null, Pricingclass, gallons, results);
+            }
+        });
     }
-};
-*/
-// PORT
-//module.exports = app;
+    
+    quote_query(req.session.fullname, Pricing, gallons, function(err, Pricingclass, gallons, results) {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            Pricingclass.set_history(results[0]);
+            var price = Pricingclass.get_price();
+            var cost = price * gallons
+
+            // Add fuel quote to database
+            sql = 'insert into fuel_quote(full_name, gallons, address1, price, cost) values(?, ?, ?, ?, ?)'
+            conn.query(sql, [info.full_name, gallons, info.address1, price, cost], function(err) {
+                if (err) throw err;
+            })
+        }
+    })
+
+    function displayPage(fullname, callback) {
+        let sql = 'select* from fuel_quote f where f.full_name = ?'
+        conn.query(sql, fullname, function(err, results) {
+            if (err) {
+                callback(err, null)
+            }
+            else {
+                callback(null, results)
+            }
+        })
+    }
+
+    displayPage (req.session.fullname, function(err, results) {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            res.render('fuelQuoteDisplay', {results: results})
+        }
+    })
+});
