@@ -18,7 +18,9 @@ window.onload = containerShow;
   let toSignBtn = getSelector(".toSign"),
     toLoginBtn = getSelector(".toLogin");
   (loginBox = getSelector(".loginBox")), (signBox = getSelector(".signupBox"));
-
+  
+window.onload = function(){
+  
   toSignBtn.onclick = () => {
     loginBox.className += " animate_login";
     signBox.className += " animate_sign";
@@ -28,6 +30,7 @@ window.onload = containerShow;
     loginBox.classList.remove("animate_login");
     signBox.classList.remove("animate_sign");
   };
+ };
 })(window, document);
 
 
