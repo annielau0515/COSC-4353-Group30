@@ -1,0 +1,24 @@
+{
+  "name": "COSC-4353-Group30-main",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./bin/www",
+    "test": "jest --coverage"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^26.6.3"
+  },
+  "dependencies": {
+    "cookie-parser": "^1.4.5",
+    "express": "^4.16.4",
+    "express-session": "^1.17.1",
+    "mongoose-morgan": "^1.0.17",
+    "mysql": "^2.18.1",
+    "routes": "^2.1.0"
+  }
+}
