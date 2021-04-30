@@ -11,7 +11,7 @@ app.get('/',(req,res) => {
 });
 
 // gets the login information
-app.post('/', (req,res)=> {
+app.post('/login', (req,res)=> {
     var login = req.body.loginName;
     var pwd = req.body.loginPass;
     let sql = 'select * from user_credentials u where ? = u.id and ? = u.password';
