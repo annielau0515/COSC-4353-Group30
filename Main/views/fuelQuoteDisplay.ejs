@@ -6,7 +6,7 @@
   
   <body>
     <h1>Fuel Quote</h1>
-    <h2>Name: <%=results[results.length-1].full_name%></h2>
+    <h2>Name: <%=results[results.length-1]['full_name']%></h2>
     <div>Delivery Address: <%=results[results.length-1].address1%></div>
     <div>Delivery Date: <%=results[results.length-1].delivery_date%></div>
     <div>Gallons requested: <%=results[results.length-1].gallons%></div>

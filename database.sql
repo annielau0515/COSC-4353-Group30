@@ -25,5 +25,6 @@ CREATE TABLE IF NOT EXISTS fuel_quote (
 	delivery_date date,
 	address1 varchar(100) not null,
 	price decimal(4,2) not null,
-	cost numeric not null
+	cost float not null
 );
+
